@@ -101,39 +101,55 @@ class SortingRobot:
 		count = True
 		length = 0
 		i = 0
+		# get length of list
 		while count:
 			if self.can_move_right():
 				self.move_right()
 				length += 1
 			else:
 				count = False
+		# move back to beginning of list
 		while self.can_move_left():
 			self.move_left()
+		# while sort is true
 		while sort:
 			sort = False
+			# if you can move right swap current item and move right
 			if self.can_move_right():
 				self.swap_item()
 				self.move_right()
+				# if held item is greater than current item swap them
+				# then move left and swap again
 				if self.compare_item() == 1:
 					self.swap_item()
 					self.move_left()
 					self.swap_item()
 					sort = True
+				# if held item is less than current item move left
+				# and swap them
 				elif self.compare_item() == -1:
 					self.move_left()
 					self.swap_item()
 					sort = True
+				# if items are the same move left and swap
 				elif self.compare_item() == 0:
 					self.move_left()
 					self.swap_item()
 					sort = True
+				# move right after all of these things have been checked
 				self.move_right()
+			# if you can't move right
 			else:
+				# move all the way back to beginning of list
 				while self.can_move_left():
 					self.move_left()
+				# add 1 to iteration count
 				i += 1
+				# check to see if iterations exceed length of list and if
+				# true break the while loop
 				if i >= length:
 					break
+				# otherwise continue looping
 				else:
 					sort = True
 
